@@ -34,10 +34,6 @@ class QNetwork(nn.Module):
         x = (self.fc3(x))
         return x
 
-# QAgent class is one instance of an agent running in a Deep Q-Learning Model
-# - Is able to select an action based on a state
-# - Is able to update its own neural network using a state and an action
-# - 
 class QAgent:
 
     def __init__(self, state_dim, action_dim, learning_rate, discount_factor, epsilon):
@@ -112,9 +108,7 @@ class QAgent:
     def update_target_network(self):
         self.target_network.load_state_dict(self.q_network.state_dict())
 
-# modified to only hold the STATE and ACTION
-# Instead of holding the "next state", that state is just going to be 
-# whatever the agent was in when it receives a reward or punishment
+
 class ReplayMemory(object):
     def __init__(self, capacity):
         self.memory = deque([], maxlen=capacity)
@@ -408,7 +402,7 @@ epsilon = 0.9
 BATCH_SIZE = 128
 MEMORY_SIZE = 2500
 
-# Define colors
+
 WHITE = (255, 255, 255)
 BLUE = (0, 0, 255)
 
@@ -443,12 +437,10 @@ episodes = []
 # Game loop
 running = True
 while running:
-    # Handle events
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
 
-    # Clear the screen
     win.fill(WHITE)
 
     # collect the current state of the player
@@ -481,7 +473,6 @@ while running:
         high_score = counter
 
     plot_q_values(q_values1)
-    # Blit the counter text onto the window
     counter_text = font.render(f"Counter: {counter}", True, (0, 0, 0))
     max_text = font.render(f"High Score: {high_score}", True, (0, 0, 0))
     epsilon_text = font.render(f"Epsilon: {agent.epsilon}", True, (0, 0, 0))
@@ -498,8 +489,9 @@ while running:
     window.blit(epsilon_text, eps_rect)
     camera.follow(player)
 
-    # Update the display
+
     pygame.display.update()
 
-# Quit the game
+
 pygame.quit()
+
